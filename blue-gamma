@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Apply gamma (R:G:B). Example: reduce blue intensity a bit.
+# Format: gamma_r:gamma_g:gamma_b
+GAMMA="1.00:0.80:0.50"
+
+# Apply to current X display
+export DISPLAY="${DISPLAY:-:0}"
+
+# If you have multiple monitors and want per-output tuning, you can find outputs with:
+# xrandr --query
+# and use: xrandr --output <OUTPUT> --gamma ...
+xrandr --output "$(xrandr --query | awk '/ connected/{print $1; exit}')" --gamma "$GAMMA"
+

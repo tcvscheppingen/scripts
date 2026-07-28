@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+for o in $(xrandr --query | awk '/ connected/{print $1}'); do
+  xrandr --output "$o" --gamma 1:1:1
+done
